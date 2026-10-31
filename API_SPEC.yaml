@@ -1,0 +1,2862 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "VERSUS P0 API",
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "paths": {
+    "/artworks": {
+      "get": {
+        "summary": "Public published catalog",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create owned draft",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArtworkInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artworks/{id}": {
+      "get": {
+        "summary": "Permission checked work dossier",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        }
+      }
+    },
+    "/artists": {
+      "post": {
+        "summary": "Save or submit artist profile",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArtistInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/series": {
+      "post": {
+        "summary": "Create owned series",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artworks/{id}/submit": {
+      "post": {
+        "summary": "Submit draft with media",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artworks/{id}/media": {
+      "post": {
+        "summary": "Authenticated multipart image upload",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/artworks/{id}/moderate": {
+      "post": {
+        "summary": "Staff moderation with reason",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/listings": {
+      "post": {
+        "summary": "Publish a physical copy with rights verification",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/open-calls": {
+      "get": {
+        "summary": "Public call directory",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        }
+      }
+    },
+    "/admin/open-calls": {
+      "post": {
+        "summary": "Create internal/external call",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CallInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/open-calls/{id}/applications": {
+      "post": {
+        "summary": "Owned works, server deadline and consent",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me/applications": {
+      "get": {
+        "summary": "Own submissions",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        }
+      }
+    },
+    "/inquiries": {
+      "post": {
+        "summary": "Create private inquiry",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/me/inquiries": {
+      "get": {
+        "summary": "Only participant/operator records",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        }
+      }
+    },
+    "/inquiries/{id}": {
+      "get": {
+        "summary": "Private messages and offers",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        }
+      }
+    },
+    "/inquiries/{id}/messages": {
+      "post": {
+        "summary": "Participant reply",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/inquiries/{id}/offers": {
+      "post": {
+        "summary": "Seller/operator offer with immutable commission snapshot",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reservations": {
+      "post": {
+        "summary": "Atomic, idempotent reservation",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/offers/{id}/accept": {
+      "post": {
+        "summary": "Accept and reserve in one transaction",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "in": "header",
+            "name": "Idempotency-Key",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "minLength": 8,
+              "maxLength": 128
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/deals/{id}/request-completion": {
+      "post": {
+        "summary": "Seller/operator documents offline result",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/deals/{id}/confirm-offline": {
+      "post": {
+        "summary": "OPERATIONS verifies offline evidence",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/invitations": {
+      "post": {
+        "summary": "Queue address-bound private invite",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/private/invites/accept": {
+      "post": {
+        "summary": "Single use, verified email invite",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/private/collections": {
+      "get": {
+        "summary": "Live membership check",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        }
+      }
+    },
+    "/private/collections/{id}": {
+      "get": {
+        "summary": "Private works; no-store",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        }
+      }
+    },
+    "/admin/memberships/revoke": {
+      "post": {
+        "summary": "Immediate revocation",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/collections": {
+      "post": {
+        "summary": "Create public/private collection",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/editorial": {
+      "post": {
+        "summary": "CMS create",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/editorial/{id}": {
+      "post": {
+        "summary": "CMS update",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ContentInput"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/events/{id}/rsvp": {
+      "post": {
+        "summary": "Request participation",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/organizations": {
+      "post": {
+        "summary": "Organization verification request",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/mandates": {
+      "post": {
+        "summary": "Staff-reviewed representation rights",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/favorites": {
+      "post": {
+        "summary": "Private saved items",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/onboarding": {
+      "post": {
+        "summary": "Select professional roles only",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/privacy": {
+      "post": {
+        "summary": "Private defaults",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/audit": {
+      "get": {
+        "summary": "PII-redacted recent audit",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        }
+      }
+    },
+    "/admin/commission-policies": {
+      "post": {
+        "summary": "New immutable policy version",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/roles": {
+      "post": {
+        "summary": "MFA required before staff assignment",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/series/{id}/edit": {
+      "post": {
+        "summary": "Edit own series; public edits require review",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/series/{id}/review": {
+      "post": {
+        "summary": "Moderate public series revision",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artworks/{id}/variants": {
+      "post": {
+        "summary": "Create edition variant and AP copies",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/artworks/{id}/revise": {
+      "post": {
+        "summary": "Unpublish available work for a reviewed revision",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/applications/{id}/edit": {
+      "post": {
+        "summary": "Edit own submitted application before deadline",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/open-calls/{id}": {
+      "post": {
+        "summary": "Update or archive call with reason",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        },
+        "security": [
+          {
+            "session": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "description": "See strict Zod input in the corresponding service module."
+              }
+            }
+          }
+        }
+      }
+    },
+    "/admin/export": {
+      "get": {
+        "summary": "PII-free audit aggregate CSV",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Success envelope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Success"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Authentication required"
+          },
+          "403": {
+            "description": "Denied policy or CSRF"
+          },
+          "404": {
+            "description": "Missing or invisible"
+          },
+          "409": {
+            "description": "State, deadline, rights or inventory conflict"
+          },
+          "422": {
+            "description": "Zod validation error"
+          },
+          "429": {
+            "description": "Rate limited"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "session": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "better-auth.session_token"
+      }
+    },
+    "schemas": {
+      "ArtworkInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 200
+          },
+          "seriesId": {
+            "type": "string",
+            "format": "uuid",
+            "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+          },
+          "captureYear": {
+            "type": "integer",
+            "minimum": 1800,
+            "maximum": 2200
+          },
+          "description": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 10000
+          },
+          "genre": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 150
+          },
+          "colorMode": {
+            "type": "string",
+            "enum": [
+              "COLOR",
+              "BW"
+            ]
+          },
+          "visibility": {
+            "default": "PUBLIC",
+            "type": "string",
+            "enum": [
+              "PUBLIC",
+              "UNLISTED",
+              "VERIFIED_ONLY",
+              "INVITED_ONLY",
+              "OWNER_AND_STAFF"
+            ]
+          },
+          "technique": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 150
+          },
+          "paper": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 150
+          },
+          "width": {
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 10000
+          },
+          "height": {
+            "type": "integer",
+            "minimum": 10,
+            "maximum": 10000
+          },
+          "editionType": {
+            "type": "string",
+            "enum": [
+              "LIMITED",
+              "OPEN"
+            ]
+          },
+          "editionTotal": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 1000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "printYear": {
+            "type": "integer",
+            "minimum": 1800,
+            "maximum": 2200
+          },
+          "signed": {
+            "type": "boolean"
+          },
+          "rightsAccepted": {
+            "type": "boolean",
+            "const": true
+          }
+        },
+        "required": [
+          "title",
+          "seriesId",
+          "captureYear",
+          "description",
+          "genre",
+          "colorMode",
+          "technique",
+          "paper",
+          "width",
+          "height",
+          "editionType",
+          "editionTotal",
+          "printYear",
+          "signed",
+          "rightsAccepted"
+        ],
+        "additionalProperties": false
+      },
+      "ArtistInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 150
+          },
+          "biography": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "statement": {
+            "type": "string",
+            "maxLength": 5000
+          },
+          "city": {
+            "type": "string",
+            "maxLength": 150
+          }
+        },
+        "required": [
+          "name",
+          "biography",
+          "statement",
+          "city"
+        ],
+        "additionalProperties": false
+      },
+      "CallInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 200
+          },
+          "organizerName": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 200
+          },
+          "sourceType": {
+            "type": "string",
+            "enum": [
+              "EXTERNAL",
+              "VERSUS_HOSTED"
+            ]
+          },
+          "sourceUrl": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 10000
+          },
+          "requirements": {
+            "type": "string",
+            "minLength": 10,
+            "maxLength": 5000
+          },
+          "eligibility": {
+            "type": "string",
+            "maxLength": 3000
+          },
+          "startsAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "deadlineAt": {
+            "type": "string",
+            "format": "date-time",
+            "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+          },
+          "timezone": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 100
+          },
+          "maxWorks": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20
+          },
+          "feeMinor": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 9000000000000
+              },
+              {
+                "type": "number",
+                "const": 0
+              }
+            ]
+          },
+          "isDemo": {
+            "default": false,
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "title",
+          "organizerName",
+          "sourceType",
+          "sourceUrl",
+          "description",
+          "requirements",
+          "eligibility",
+          "startsAt",
+          "deadlineAt",
+          "timezone",
+          "maxWorks",
+          "feeMinor"
+        ],
+        "additionalProperties": false
+      },
+      "ContentInput": {
+        "$schema": "https://json-schema.org/draft/2020-12/schema",
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "ARTICLE",
+              "PAGE",
+              "EVENT",
+              "AUCTION",
+              "ARCHIVE",
+              "FAQ",
+              "ANNOUNCEMENT"
+            ]
+          },
+          "title": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 250
+          },
+          "slug": {
+            "type": "string",
+            "minLength": 2,
+            "maxLength": 150,
+            "pattern": "^[a-z0-9/-]+$"
+          },
+          "body": {
+            "type": "string",
+            "minLength": 20,
+            "maxLength": 50000
+          },
+          "excerpt": {
+            "type": "string",
+            "maxLength": 500
+          },
+          "seoTitle": {
+            "default": "",
+            "type": "string",
+            "maxLength": 200
+          },
+          "seoDescription": {
+            "default": "",
+            "type": "string",
+            "maxLength": 500
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "PUBLIC",
+              "INVITED_ONLY"
+            ]
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "DRAFT",
+              "PUBLISHED",
+              "ARCHIVED"
+            ]
+          },
+          "sourceUrl": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uri"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "eventAt": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "eventAddress": {
+            "anyOf": [
+              {
+                "type": "string",
+                "maxLength": 1000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "capacity": {
+            "anyOf": [
+              {
+                "type": "integer",
+                "exclusiveMinimum": 0,
+                "maximum": 10000
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "priority": {
+            "default": 0,
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 1000
+          }
+        },
+        "required": [
+          "type",
+          "title",
+          "slug",
+          "body",
+          "excerpt",
+          "visibility",
+          "status",
+          "sourceUrl",
+          "eventAt",
+          "eventAddress",
+          "capacity"
+        ],
+        "additionalProperties": false
+      },
+      "Success": {
+        "type": "object",
+        "required": [
+          "data",
+          "requestId"
+        ],
+        "properties": {
+          "data": {},
+          "requestId": {
+            "type": "string",
+            "format": "uuid"
+          }
+        }
+      }
+    }
+  }
+}

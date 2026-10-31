@@ -1,0 +1,60 @@
+{
+  "name": "versus",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "dev": "NEXT_TELEMETRY_DISABLED=1 next dev --hostname 0.0.0.0",
+    "build": "NEXT_TELEMETRY_DISABLED=1 next build --webpack",
+    "start": "next start --hostname 0.0.0.0",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --max-warnings=0",
+    "test": "vitest run tests/unit",
+    "test:integration": "vitest run tests/integration --maxWorkers=1",
+    "test:e2e": "playwright test",
+    "db:migrate": "tsx --env-file=.env.local scripts/migrate.ts",
+    "db:seed": "tsx --env-file=.env.local scripts/seed.ts && tsx --env-file=.env.local scripts/seed-commerce.ts",
+    "worker": "tsx --env-file=.env.local src/modules/integrations/worker.ts",
+    "check": "npm run typecheck && npm run lint && npm test && npm run build",
+    "services:wait": "tsx --env-file=.env.local scripts/wait-services.ts",
+    "api:generate": "tsx --env-file=.env.local scripts/generate-api.ts",
+    "format": "prettier --write ."
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "3.1161.0",
+    "@aws-sdk/s3-request-presigner": "3.1161.0",
+    "@node-rs/argon2": "2.2.2",
+    "better-auth": "1.7.14",
+    "bullmq": "6.5.3",
+    "drizzle-orm": "0.45.4",
+    "ioredis": "6.0.0",
+    "next": "16.4.3",
+    "nodemailer": "10.3.1",
+    "otplib": "13.6.0",
+    "postgres": "3.4.7",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "sharp": "0.35.5",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.64.1",
+    "@tailwindcss/postcss": "4.3.3",
+    "@types/node": "26.6.6",
+    "@types/nodemailer": "8.0.2",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "dotenv": "18.0.9",
+    "eslint": "9.39.5",
+    "eslint-config-next": "16.4.3",
+    "prettier": "3.9.10",
+    "tailwindcss": "4.3.3",
+    "tsx": "4.23.15",
+    "typescript": "6.0.3",
+    "vitest": "5.0.5"
+  },
+  "type": "module"
+}

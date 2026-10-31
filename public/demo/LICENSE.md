@@ -1,0 +1,1 @@
+All abstract demo compositions in this repository are original programmatically generated geometric illustrations created for VERSUS development. They are not photographs or works by real artists. They may be used, modified and redistributed with this project under CC0-1.0. All depicted artists, collectors, institutions, prices and transactions are fictional DEMO records.

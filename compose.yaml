@@ -1,0 +1,86 @@
+name: versus
+services:
+  db:
+    image: postgres:17.6-alpine
+    environment:
+      POSTGRES_USER: versus
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env.local}
+      POSTGRES_DB: versus
+    ports: ["127.0.0.1:5432:5432"]
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U versus -d versus"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  redis:
+    image: redis:7.4.5-alpine
+    ports: ["127.0.0.1:6379:6379"]
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: [redisdata:/data]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+  s3:
+    image: chrislusf/seaweedfs:3.97@sha256:bb05d66d2963b1cc48073190781c3dd29e2c4c88a2ae2986bf58e38c86d89c6e
+    entrypoint: ["/bin/sh", "/opt/versus/s3-entrypoint.sh"]
+    working_dir: /data
+    environment:
+      NO_PROXY: ${NO_PROXY:-localhost,127.0.0.1},s3,db,redis,mailpit
+      no_proxy: ${no_proxy:-localhost,127.0.0.1},s3,db,redis,mailpit
+      S3_ACCESS_KEY: ${S3_ACCESS_KEY:?Set S3_ACCESS_KEY}
+      S3_SECRET_KEY: ${S3_SECRET_KEY:?Set S3_SECRET_KEY}
+    ports: ["127.0.0.1:9000:9000"]
+    volumes:
+      - s3data:/data
+      - ./infra/s3-entrypoint.sh:/opt/versus/s3-entrypoint.sh:ro
+      - ./infra/filer.toml:/etc/seaweedfs/filer.toml:ro
+  mailpit:
+    image: axllent/mailpit:v1.27.8
+    ports: ["127.0.0.1:1025:1025", "127.0.0.1:8025:8025"]
+  web:
+    profiles: [app]
+    build:
+      context: .
+      secrets: [proxy_ca]
+    env_file: .env.local
+    environment:
+      NO_PROXY: ${NO_PROXY:-localhost,127.0.0.1},s3,db,redis,mailpit
+      no_proxy: ${no_proxy:-localhost,127.0.0.1},s3,db,redis,mailpit
+      DATABASE_URL: postgres://versus:${POSTGRES_PASSWORD}@db:5432/versus
+      REDIS_URL: redis://redis:6379
+      S3_ENDPOINT: http://s3:9000
+      SMTP_HOST: mailpit
+      HOSTNAME: 0.0.0.0
+    ports: ["127.0.0.1:3000:3000"]
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      s3: { condition: service_started }
+      mailpit: { condition: service_started }
+  worker:
+    profiles: [app]
+    build:
+      context: .
+      secrets: [proxy_ca]
+    command: ["npx", "tsx", "src/modules/integrations/worker.ts"]
+    env_file: .env.local
+    environment:
+      NO_PROXY: ${NO_PROXY:-localhost,127.0.0.1},s3,db,redis,mailpit
+      no_proxy: ${no_proxy:-localhost,127.0.0.1},s3,db,redis,mailpit
+      DATABASE_URL: postgres://versus:${POSTGRES_PASSWORD}@db:5432/versus
+      REDIS_URL: redis://redis:6379
+      S3_ENDPOINT: http://s3:9000
+      SMTP_HOST: mailpit
+    depends_on:
+      db: { condition: service_healthy }
+      redis: { condition: service_healthy }
+secrets:
+  proxy_ca:
+    file: ${PROXY_CA_FILE:-${CODEX_PROXY_CERT:-.local/build-ca.pem}}
+volumes:
+  pgdata:
+  redisdata:
+  s3data:

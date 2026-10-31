@@ -1,0 +1,9 @@
+node_modules
+.next
+.local
+.env*
+API_SPEC.yaml
+specs/VERSUS_MASTER_SPEC.md
+playwright-report
+test-results
+package-lock.json

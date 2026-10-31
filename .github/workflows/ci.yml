@@ -1,0 +1,37 @@
+name: VERSUS P0
+on: [push, pull_request]
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: node scripts/local-env.mjs
+      - run: docker compose --env-file .env.local up -d db redis s3 mailpit
+      - run: npm run db:migrate && npm run services:wait && npm run db:seed
+      - run: npm run check
+      - run: npm run test:integration
+      - run: npx playwright install --with-deps chromium
+      - name: Browser journeys against production build
+        run: |
+          npm start > /tmp/versus-web.log 2>&1 &
+          npm run worker > /tmp/versus-worker.log 2>&1 &
+          for attempt in $(seq 1 45); do
+            if curl -fsS http://localhost:3000/health/ready; then break; fi
+            sleep 1
+          done
+          npm run test:e2e
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-evidence
+          path: |
+            playwright-report/
+            test-results/
+      - if: always()
+        run: docker compose --env-file .env.local down

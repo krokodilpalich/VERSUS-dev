@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX one_active_deal_per_copy ON deals(edition_copy_id) WHERE status IN ('OFFLINE_AGREED','OFFLINE_COMPLETION_PENDING_VERIFICATION');
